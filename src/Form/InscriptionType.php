@@ -21,7 +21,13 @@ class InscriptionType extends AbstractType
             ->add('nom', TextType::class,
                 [
                     'label' => 'Votre nom',
-                    'constraints' => new Length(2,2,30),
+                    'constraints' => new Length
+                    (
+                        [
+                            'min' => 2,
+                            'max' => 30
+                        ]
+                    ),
                     'attr' =>
                         [
                             'placeholder' => 'Merci de saisir votre nom'
@@ -30,7 +36,13 @@ class InscriptionType extends AbstractType
             ->add('prenom', TextType::class,
                 [
                     'label' => 'Votre prénom',
-                    'constraints' => new Length(2,2,30),
+                    'constraints' => new Length
+                    (
+                        [
+                            'min' => 2,
+                            'max' => 30
+                        ]
+                    ),
                     'attr' =>
                         [
                             'placeholder' => 'Merci de saisir votre prénom'
@@ -39,7 +51,13 @@ class InscriptionType extends AbstractType
             ->add('email', EmailType::class,
                 [
                     'label' => 'Votre email',
-                    'constraints' => new Length(2,2,60),
+                    'constraints' => new Length
+                    (
+                        [
+                            'min' => 2,
+                            'max' => 30
+                        ]
+                    ),
                     'attr' =>
                         [
                             'placeholder' => 'Merci de saisir votre email'
