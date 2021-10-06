@@ -18,39 +18,39 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class,
+            ->add('nom', TextType::class,
                 [
-                    'label'=>'Votre nom',
-                    'constraints'=>new Length(2,30),
-                    'attr'=>
+                    'label' => 'Votre nom',
+                    'constraints' => new Length(2,2,30),
+                    'attr' =>
                         [
-                            'placeholder'=>'Merci de saisir votre nom'
+                            'placeholder' => 'Merci de saisir votre nom'
                         ]
                 ])
-            ->add('prenom',TextType::class,
+            ->add('prenom', TextType::class,
                 [
-                    'label'=>'Votre prénom',
-                    'constraints'=>new Length(2,30),
-                    'attr'=>
+                    'label' => 'Votre prénom',
+                    'constraints' => new Length(2,2,30),
+                    'attr' =>
                         [
-                            'placeholder'=>'Merci de saisir votre prénom'
+                            'placeholder' => 'Merci de saisir votre prénom'
                         ]
                 ])
             ->add('email', EmailType::class,
                 [
-                    'label'=>'Votre email',
-                    'constraints'=>new Length(2,60),
-                    'attr'=>
+                    'label' => 'Votre email',
+                    'constraints' => new Length(2,2,60),
+                    'attr' =>
                         [
-                            'placeholder'=>'Merci de saisir votre email'
+                            'placeholder' => 'Merci de saisir votre email'
                         ]
                 ])
-            ->add('password',PasswordType::class,
+            ->add('password', PasswordType::class,
                 [
-                    'label'=>'Votre mot de passe',
-                    'attr'=>
+                    'label' => 'Votre mot de passe',
+                    'attr' =>
                         [
-                            'placeholder'=>'Merci de saisir votre mot de passe'
+                            'placeholder' => 'Merci de saisir votre mot de passe'
                         ]
                 ])
             ->add('password', RepeatedType::class, [
@@ -58,15 +58,27 @@ class InscriptionType extends AbstractType
                 'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+                'first_options' =>
+                    [
+                        'label' => 'Mot de passe',
+                        'attr' =>
+                            [
+                                'placeholder' => 'Merci de saisir votre mot de passe',
+                            ],
+                    ],
+                'second_options' =>
+                    [
+                        'label' => 'Confirmez votre mot de passe',
+                        'attr' =>
+                            [
+                                'placeholder' => 'Merci de confirmer votre  mot de passe',
+                            ],
+                    ],
             ])
-
-            ->add('submit',SubmitType::class,
+            ->add('submit', SubmitType::class,
                 [
-                    'label'=>"S'inscrire"
-                ])
-        ;
+                    'label' => "S'inscrire"
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
