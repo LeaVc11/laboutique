@@ -11,12 +11,12 @@
         {% for product in products %}
             <div class="col-md-4">
                 {# {{ dump(product) }} #}
-                <div class="produit-item">
+                <div class="product-item text-center">
 
                     <img src="/uploads/{{ product.illustration }}" alt="{{product.nom }}" class="img-fluid">
                     <h5>{{product.nom }}</h5>
-                    <span>{{ product.subtitle }}</span>
-                    {{ product.prix }}
+                    <span class="product-subtitle">{{ product.subtitle }}</span><br/>
+                    <span class="product-prix">{{ (product.prix / 100)|number_format(2,',','.')}}</span><br/>
                 </div>
 
             </div>

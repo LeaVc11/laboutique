@@ -1,14 +1,35 @@
-.navbar-item-personnalise,.navbar-item-personnalise a
-{
+.navbar-item-personnalise, .navbar-item-personnalise a {
     color: white;
 }
 
-.footer-personnalise
-{
+.footer-personnalise {
     text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #dfeaff;
-    padding-top: 25px ;
+
+}
+
+
+
+.product-item h5 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-bottom: 1px;
+}
+
+.product-item {
+    margin-top: 50px;
+}
+
+.product-item .product-subtitle {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.product-item .product-prix {
+    font-size: 16px;
+    font-weight: bold;
 }
