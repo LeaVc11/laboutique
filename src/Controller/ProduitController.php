@@ -27,11 +27,30 @@ class ProduitController extends AbstractController
     {
         $products = $this->entityManager->getRepository(Produit::class)->findAll();
 
-    /* dd($products);*/
+        /* dd($products);*/
 
         return $this->render('produit/index.html.twig',
             [
                 'products' => $products
+            ]);
+    }
+
+
+    #[Route('/produit/{slug}', name: 'product')]
+    public function show($slug)
+    {
+
+        $product = $this->entityManager->getRepository(Produit::class)->findOneBySlug($slug);
+    /*    dd($products);*/
+
+        if (!$product)
+        {
+            return $this->redirectToRoute('produits');
+        }
+
+        return $this->render('produit/show.html.twig',
+            [
+                'product' => $product
             ]);
     }
 }

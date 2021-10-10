@@ -33,7 +33,7 @@ return
             ->setRequired(false),
         TextField::new('subtitle'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
         TextareaField::new('description'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
-        MoneyField::new('prix')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/->setCurrency('EUR'),
+        MoneyField::new('prix','Prix')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/->setCurrency('EUR'),
         AssociationField::new('category')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
 
     ];
