@@ -1,17 +1,19 @@
+body{
+    position: relative;
+}
+
 .navbar-item-personnalise, .navbar-item-personnalise a {
     color: white;
 }
 
 .footer-personnalise {
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
     background-color: #dfeaff;
 
 }
-
-
 
 .product-item h5 {
     text-transform: uppercase;
@@ -36,6 +38,6 @@
 .product-container {
     margin-bottom: 140px;
 }
-span.product-seul-prix{
+.product-seul-prix{
     font-size: 18px;
 }

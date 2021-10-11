@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Classe\Recherche;
 use App\Entity\Produit;
+use App\Form\RechercheType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProduitController extends AbstractController
@@ -23,15 +26,28 @@ class ProduitController extends AbstractController
 
 
     #[Route('/nos-produits', name: 'produits')]
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->entityManager->getRepository(Produit::class)->findAll();
+
+        $recherche= new Recherche();
+
+        $form=$this->createForm(RechercheType::class,$recherche);
 
         /* dd($products);*/
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $products = $this->entityManager->getRepository(Produit::class)->findWithRecherche($recherche);
+           /* dd($recherche);*/
+        }else{
+            $products = $this->entityManager->getRepository(Produit::class)->findAll();
+        }
         return $this->render('produit/index.html.twig',
             [
-                'products' => $products
+                'products' => $products,
+                'form'=>$form->createView()
             ]);
     }
 
