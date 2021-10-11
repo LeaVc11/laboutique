@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RechercheType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('string', TextType::class,
@@ -36,7 +36,7 @@ class RechercheType extends AbstractType
                 ])
         ->add('submit',SubmitType::class,
             [
-                'label'=>'Filtrer',
+                'label'=>'Rechercher',
                 'attr'=>
                     [
                        'class'=>'btn-block btn-secondary'

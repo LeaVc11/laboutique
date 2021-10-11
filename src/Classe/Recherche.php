@@ -10,7 +10,7 @@ class Recherche
     /**
      * @var string
      */
-public $string = '';
+public $string = "";
 
     /**
      * @var Category []
