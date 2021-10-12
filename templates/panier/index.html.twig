@@ -8,40 +8,67 @@
     Retrouvez l'ensemble des produits que vous avez ajouté dans votre panier.
 
     {# {{ dump(panier) }} #}
-    <table class="table mt-3">
-        <thead>
-        <tr>
-            <th scope="col">Produit</th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% set total = null %}
-        {% for produit in panier %}
-            {# {{  dump(produit)}} #}
+    {% if panier |length > 0 %}
+        <table class="table mt-3">
+            <thead>
             <tr>
-                <th>
-                    <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
-                         height="75px"><br>
-                </th>
-                <td>{{ produit.product.nom }}
-                    <small>{{ produit.product.subtitle }}</small>
-                </td>
-                <td>x {{ produit.quantity }}</td>
-                <td>{{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €</td>
-
+                <th scope="col">Produit</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
             </tr>
-            {%  set total = total + (produit.product.prix * produit.quantity) %}
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% set total = null %}
+            {% for produit in panier %}
+                {# {{  dump(produit)}} #}
+                <tr>
+                    <th>
+                        <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
+                             height="75px"><br>
+                    </th>
+                    <td>{{ produit.product.nom }}
+                        <br>
+                        <small>{{ produit.product.subtitle }}</small>
+                    </td>
+                    <td>
 
-    <div class="text-right mb-5">
-      <b>  Nombre de produit : {{ panier|length }}</b><br>
-      <b> Total : </b>{{ (total/ 100) | number_format(2, ',', '.') }} €<br>
+                  {#      Diminuer produit#}
+                        <a href="{{ path('decrease_mon_panier', { 'id':produit.product.id}) }}">
+                            <img src="{{ asset('assets/image/minus.png') }}" height="15px" alt="Supprimer quantité">
+                        </a>
+                        <b> x {{ produit.quantity }}</b>
 
-      <a href="" class="btn btn-success ">Valider mon panier</a>
-    </div>
+
+                  {#      Ajouter produit#}
+                        <a href="{{ path('add_to_panier', { 'id':produit.product.id}) }}">
+
+                        <img src="{{ asset('assets/image/plus.png') }}" height="15px" alt="Ajouter quantité">
+                        </a>
+                    </td>
+                    <td>{{ (produit.product.prix/ 100) | number_format(2, ',', '.') }} €</td>
+                    <td>{{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €</td>
+                    <td>
+                        <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
+                            <img src="{{ asset('assets/image/delete.png') }}" height="18px" alt="Supprimer mon produit">
+                        </a>
+
+                    </td>
+                </tr>
+                {% set total = total + (produit.product.prix * produit.quantity) %}
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right mb-5">
+            <b> Nombre de produit : {{ panier|length }}</b><br>
+            <b> Total : </b>{{ (total/ 100) | number_format(2, ',', '.') }} €<br>
+
+            <a href="" class="btn btn-success mt-3">Valider mon panier</a>
+        </div>
+    {% else %}
+        <hr>
+        <p class="mb-5"><b>Votre panier est vide.</b></p>
+    {% endif %}
 {% endblock %}

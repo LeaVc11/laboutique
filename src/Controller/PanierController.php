@@ -25,22 +25,12 @@ class PanierController extends AbstractController
     #[Route('/mon-panier', name: 'panier')]
     public function index(Panier $panier)
     {
-
         /*dd($panier->get());*/
-        $panierComplet = [];
 
-        foreach ($panier->get() as $id => $quantity) {
-            $panierComplet[] =
-                [
-                    'product' => $this->entityManager->getRepository(Produit::class)->findOneById($id),
-                    'quantity' => $quantity
-                ];
-        }
-/*        dd($panierComplet);*/
-
+        /*        dd($panierComplet);*/
         return $this->render('panier/index.html.twig',
             [
-                'panier' => $panierComplet
+                'panier' => $panier->getFull()
             ]);
     }
 
@@ -54,11 +44,19 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('panier');
     }
 
-    #[Route('/panier/remove', name: 'remove_mon_panier')]
-    public function remove(Panier $panier)
+    #[Route('/panier/delete/{id}', name: 'delete_mon_panier')]
+    public function delete(Panier $panier, $id)
     {
 
-        $panier->remove();
-        return $this->redirectToRoute('produits');
+        $panier->delete($id);
+        return $this->redirectToRoute('panier');
+    }
+
+    #[Route('/panier/decrease/{id}', name: 'decrease_mon_panier')]
+    public function decrease(Panier $panier, $id)
+    {
+
+        $panier->decrease($id);
+        return $this->redirectToRoute('panier');
     }
 }

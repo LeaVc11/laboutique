@@ -12,6 +12,8 @@ body{
     bottom: 0;
     width: 100%;
     background-color: #dfeaff;
+    padding-top: 25px;
+    margin-top: 50px;
 
 }
 
@@ -40,4 +42,8 @@ body{
 }
 .product-seul-prix{
     font-size: 18px;
+}
+.cart-icon
+{
+    padding-left: 20px;
 }
