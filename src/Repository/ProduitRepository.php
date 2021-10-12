@@ -40,7 +40,7 @@ class ProduitRepository extends ServiceEntityRepository
      if (!empty($recherche->string)) {
             $query = $query
                 ->andWhere('p.nom LIKE :string')
-                ->setParameter('string', '%'.$recherche->string.'%'); // "%{ }%" permet d'indique a symfony que l'on veut effectuer une requete partielle.
+                ->setParameter('string', "%{$recherche->string}%"); // "%{ }%" permet d'indique a symfony que l'on veut effectuer une requete partielle.
         }
 
         return $query->getQuery()->getResult();
