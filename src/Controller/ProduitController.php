@@ -7,7 +7,6 @@ use App\Entity\Produit;
 use App\Form\RechercheType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,6 +44,7 @@ class ProduitController extends AbstractController
             $products = $this->entityManager->getRepository(Produit::class)->findAll();
         }
         return $this->render('produit/index.html.twig',
+
             [
                 'products' => $products,
                 'form'=>$form->createView()

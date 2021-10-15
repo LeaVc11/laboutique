@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Classe\Panier;
-use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,7 +36,6 @@ class PanierController extends AbstractController
     #[Route('/panier/add/{id}', name: 'add_to_panier')]
     public function add(Panier $panier, $id)
     {
-        /*    dd($id);*/
 
         $panier->add($id);
 

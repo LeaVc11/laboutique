@@ -4,6 +4,7 @@ body{
 
 .navbar-item-personnalise, .navbar-item-personnalise a {
     color: white;
+    font-weight: bold;
 }
 
 .footer-personnalise {
@@ -43,7 +44,8 @@ body{
 .product-seul-prix{
     font-size: 18px;
 }
-.cart-icon
+img .cart-icon
 {
     padding-left: 20px;
+    color: black;
 }

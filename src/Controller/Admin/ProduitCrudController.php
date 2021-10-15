@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Produit;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -33,6 +34,7 @@ return
             ->setRequired(false),
         TextField::new('subtitle'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
         TextareaField::new('description'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
+        BooleanField::new('isBest'),
         MoneyField::new('prix','Prix')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/->setCurrency('EUR'),
         AssociationField::new('category')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
 
