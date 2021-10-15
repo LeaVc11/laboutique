@@ -28,7 +28,7 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
-        <a class="navbar-brand fw-bold" href="{{ path('home')}}">La Marque 42 </a>
+        <a class="navbar-brand " href="{{ path('home')}}">La Marque 42 </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,13 +36,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link fw-bold" href="{{ path('produits') }}">Nos produits</a>
+                    <a class="nav-link " href="{{ path('produits') }}">Nos produits</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link fw-bold" href="#">Qui sommes-nous</a>
+                    <a class="nav-link " href="#">Qui sommes-nous</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link fw-bold" href="#">Contact</a>
+                    <a class="nav-link " href="#">Contact</a>
                 </li>
 
             </ul>
@@ -50,7 +50,7 @@
             <div class="navbar-item-personnalise">
                 {% if app.user %}
 
-                    <a href="{{ path('account') }}">Mon compte ({{ app.user.nom }} {{ app.user.prenom }})</a> | <a href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a href="{{ path('account') }}" >Mon compte ({{ app.user.nom }} {{ app.user.prenom }})</a> | <a href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_login') }}">Connexion</a> | <a
                         href="{{ path('inscription') }}">Inscription</a>

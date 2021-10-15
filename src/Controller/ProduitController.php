@@ -32,8 +32,6 @@ class ProduitController extends AbstractController
 
         $form=$this->createForm(RechercheType::class,$recherche);
 
-        /* dd($products);*/
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
