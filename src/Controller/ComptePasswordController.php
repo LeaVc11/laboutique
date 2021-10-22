@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccountPasswordController extends AbstractController
+class ComptePasswordController extends AbstractController
 {
     private $entityManager;
 
@@ -18,7 +18,7 @@ class AccountPasswordController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/compte/modifier-password', name: 'account_password')]
+    #[Route('/compte/modifier-password', name: 'compte_password')]
     public function index(Request $request, UserPasswordHasherInterface $encoder)
     {
         $notification=null;
@@ -47,7 +47,7 @@ class AccountPasswordController extends AbstractController
             }
 
         }
-        return $this->render('account/password.html.twig',
+        return $this->render('compte/password.html.twig',
             [
 
                 /*Affichage dans twig*/
