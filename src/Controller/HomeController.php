@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Entete;
+use App\Entity\Header;
 use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +25,7 @@ class HomeController extends AbstractController
     public function index()
     {
         $products = $this->entityManager->getRepository(Produit::class)->findByisBest(1);
-        $headers = $this->entityManager->getRepository(Entete::class)->findAll();
+        $headers = $this->entityManager->getRepository(Header::class)->findAll();
   /*      phpinfo();*/
 /*dd($products);*/
         return $this->render('home/index.html.twig',

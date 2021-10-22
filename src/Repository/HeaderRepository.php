@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Entete;
+use App\Entity\Header;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Entete|null find($id, $lockMode = null, $lockVersion = null)
- * @method Entete|null findOneBy(array $criteria, array $orderBy = null)
- * @method Entete[]    findAll()
- * @method Entete[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Header|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Header|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Header[]    findAll()
+ * @method Header[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EnteteRepository extends ServiceEntityRepository
+class HeaderRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Entete::class);
+        parent::__construct($registry, Header::class);
     }
 
     // /**
-    //  * @return Entete[] Returns an array of Entete objects
+    //  * @return Header[] Returns an array of Header objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class EnteteRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Entete
+    public function findOneBySomeField($value): ?Header
     {
         return $this->createQueryBuilder('h')
             ->andWhere('h.exampleField = :val')
