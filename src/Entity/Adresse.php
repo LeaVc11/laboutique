@@ -28,6 +28,12 @@ class Adresse
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $name;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $nom;
 
     /**
@@ -117,6 +123,22 @@ class Adresse
         $this->entreprise = $entreprise;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 
     public function getAdresse(): ?string
