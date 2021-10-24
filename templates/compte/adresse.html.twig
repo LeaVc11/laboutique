@@ -13,11 +13,31 @@
     <hr>
     {# {{ dump(app.user) }} #}
     {% if app.user.adresses |length == 0 %}
-       <p class="text-center">Vous n'avez pas encore ajouté d'adresse dans votre compte client.
-           Pour en ajouter une, veuillez <a href="">Cliquez-ici</a>
-       </p>
-        {% else %}
-        Afficher les adresses
+        <p class="text-center">Vous n'avez pas encore ajouté d'adresse dans votre compte client.
+            Pour en ajouter une, veuillez <a href="">Cliquez-ici</a>
+        </p>
+    {% else %}
+        <div class="row">
+            {% for adresse in app.user.adresses %}
+
+
+            <div class="col-md-4 mb-5">
+                <div class="card" style="width: 18rem;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ adresse.name  }}</h5>
+                        <p class="card-text">
+                            {{ adresse.adresse  }}
+                            {{ adresse.codePostal  }} - {{ adresse.ville }} - {{ adresse.pays }}
+                        </p>
+                        <a href="{{ path('compte_adresse_modifier',{ 'id' : adresse.id }  ) }}" >Modifier</a> |
+                        <a href="{{ path('compte_adresse_supprimer', {'id' : adresse.id} ) }}">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
     {% endif %}
 
 {% endblock %}
