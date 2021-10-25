@@ -7,18 +7,19 @@ use Mailjet\Resources;
 
 class Mail
 {
-    private $api_key = '412749147e3b1143294ed2e62444ec02';
-    private $api_key_secret = '4f36c2c13cc6868fa1815c86dcb2e6cb';
+    private $api_key = '39dc6194a8371e429bca84488a6f18fe';
+    private $api_key_secret = '4b846720c9a7afd58aab3b93d09208be';
 
     public function send($to_email, $to_name, $subject, $content)
     {
-        $mj = new Client($this->api_key, $this->api_key_secret,true,['version' => 'v3.1']);
+        $mj = new Client($this->api_key, $this->api_key_secret, true,['version' => 'v3.1'] );
+
         $body = [
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => "marque42@gmail.com",
-                        'Name' => "La Marque 42"
+                        'Email' => "vinagre.carine@gmail.com",
+                        'Name' => "La boutique Marque 42"
                     ],
                     'To' => [
                         [
@@ -26,7 +27,7 @@ class Mail
                             'Name' => $to_name
                         ]
                     ],
-                    'TemplateID' => 1763445,
+                    'TemplateID' => 3286177,
                     'TemplateLanguage' => true,
                     'Subject' => $subject,
                     'Variables' => [
@@ -36,6 +37,6 @@ class Mail
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success();
+        $response->success() && ($response->getData());
     }
 }
