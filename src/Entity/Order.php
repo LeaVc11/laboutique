@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,8 +27,9 @@ class Order
     private $user;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
+
     private $createdAt;
 
     /**
@@ -40,9 +43,20 @@ class Order
     private $prixTransporteur;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
+
     private $livraison;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DetailCommande::class, mappedBy="commande")
+     */
+    private $detailCommandes;
+
+    public function __construct()
+    {
+        $this->detailCommandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +119,36 @@ class Order
     public function setLivraison(string $livraison): self
     {
         $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DetailCommande[]
+     */
+    public function getDetailCommandes(): Collection
+    {
+        return $this->detailCommandes;
+    }
+
+    public function addDetailCommande(DetailCommande $detailCommande): self
+    {
+        if (!$this->detailCommandes->contains($detailCommande)) {
+            $this->detailCommandes[] = $detailCommande;
+            $detailCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailCommande(DetailCommande $detailCommande): self
+    {
+        if ($this->detailCommandes->removeElement($detailCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($detailCommande->getCommande() === $this) {
+                $detailCommande->setCommande(null);
+            }
+        }
 
         return $this;
     }

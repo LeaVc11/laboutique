@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\Header;
 use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,17 +25,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index()
     {
-        $products = $this->entityManager->getRepository(Produit::class)->findByisBest(1);
-        $headers = $this->entityManager->getRepository(Header::class)->findAll();
+        $products = $this->entityManager->getRepository(Produit::class)->findByIsBest(1);
+
   /*      phpinfo();*/
 /*dd($products);*/
+
+        $mail=new Mail();
+        $mail->send('laboutiquetest42@gmail.com', 'Carine VINAGRE','Mon premier message', 'Bonjour, Carine');
+
         return $this->render('home/index.html.twig',
             [
                 'products'=>$products,
-                'headers'=>$headers
+
             ]);
     }
-
-
-
 }

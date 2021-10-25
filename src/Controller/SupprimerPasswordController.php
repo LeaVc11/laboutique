@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\SupprimerPassword;
 use App\Entity\User;
 use DateTime;
@@ -28,17 +29,14 @@ class SupprimerPasswordController extends AbstractController
     public function index(Request $request)
     {
 
-        if ($this->getUser())
-        {
+        if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
-        if ($request->get('email'))
-        {
-          /*  dd($request->get('email'));*/
+        if ($request->get('email')) {
+            /*  dd($request->get('email'));*/
             $user = $this->entityManager->getRepository(User::class)->findOneByEmail($request->get('email'));
-           /* dd($user);*/
-            if ($user)
-            {
+            /* dd($user);*/
+            if ($user) {
                 // Etape 1 : Enregistre en BDD la demande de supprimer avec user, token, createAt
                 $supprimer_password = new SupprimerPassword();
                 $supprimer_password->setUser($user);
@@ -49,16 +47,55 @@ class SupprimerPasswordController extends AbstractController
 
                 //Envoyer un mail à l'utilisateur avec un lien qui permet de mettre à jour son mot de passe
 
+                $url = $this->generateUrl('modifier_password',
+                    [
+                        'token' => $supprimer_password->getToken()
+                    ]);
 
+                $content = "Bonjour" . $user->getPrenom() . "<br/>Vous avez demandé à réinitialiser votre de passe sur le site La Boutique La Marque 42.<br/><br/>";
+                $content .= "Merci de bien vouloir cliquer sur le lien suivant pour <a href='" . $url . "'> mettre à jour votre mot de passe</a> ";
+                $mail = new Mail();
+                $mail->send($user->getEmail(), $user->getPrenom() . ' ' . $user->getNom(), 'Réinitialiser votre mot de passe sur la boutique "La Marque 42."', $content);
 
+                $this->addFlash('notice', 'Vous allez recevoir dans quelques secondes un mail avec la procédure pour réinitialiser votre de passe. ');
+            } else {
+                $this->addFlash('notice', 'Cette adresse email est inconnue. ');
             }
         }
 
         return $this->render('supprimer_password/index.html.twig');
     }
-/*    #[Route('/mot-de-passe-modifier/{token', name: 'modifier_password')]
-    public function index(Request $request)
-    {
 
-    }*/
+    #[Route('/mot-de-passe-modifier/{token}', name: 'modifier_password')]
+    public function update($token)
+    {
+        /*dd($token);*/
+        $supprimer_password = $this->entityManager->getRepository((SupprimerPassword::class))->findOneByToken($token);
+
+        if (!$supprimer_password) {
+            return $this->redirectToRoute($supprimer_password);
+        }
+
+
+        // vérifier si le createdAt = maintenant(now) - 3h
+
+        $now = new DateTime();
+        if ($now > $supprimer_password->getCreateAt()->modify('+ 3 hour')) {
+            /*    die('ok');*/
+            /*          dump($now);
+                        dump($now < $supprimer_password->getCreateAt()->modify('+ 3 hour'));*/
+
+            $this->addFlash('notice', 'Votre demande de mot de passe a expiré. Merci de la renouveler. ');
+            return $this->redirectToRoute('supprimer_password');
+        }
+        // rendre une vue mot de passe et confirmer votre mot de passe
+        return $this->render('supprimer_password/update.html.twig');
+
+        //Encodage des mots de passe
+
+        //Flush en BDD
+
+        //Redirection de l'utilisateur vers la page de connexion
+        dd($supprimer_password);
+    }
 }
