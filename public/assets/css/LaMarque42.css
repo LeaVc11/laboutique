@@ -70,7 +70,7 @@ img .cart-icon
 }
 
 .order-summary {
-    background-color: #f4f8ff;
+    background-color: #7ed6df;
     padding: 20px;
     margin-top: 22px;
 }
@@ -82,12 +82,13 @@ img .cart-icon
 
 .account-item a {
     text-transform: uppercase;
-    font-size: 13px;
-    color: darkgray;
+    font-size: 18px;
+    color: #4b6584;
     font-weight: bold;
 }
 .account-item a:hover {
-    color: #778ca3;
+    color: #00a8ff;
     text-decoration: none;
 }
+
 
