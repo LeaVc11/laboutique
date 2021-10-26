@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Classe\Mail;
 use App\Entity\SupprimerPassword;
 use App\Entity\User;
+use App\Form\SupprimerPasswordType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SupprimerPasswordController extends AbstractController
@@ -67,7 +69,7 @@ class SupprimerPasswordController extends AbstractController
     }
 
     #[Route('/mot-de-passe-modifier/{token}', name: 'modifier_password')]
-    public function update($token)
+    public function update(Request $request, $token,  UserPasswordHasherInterface $encoder)
     {
         /*dd($token);*/
         $supprimer_password = $this->entityManager->getRepository((SupprimerPassword::class))->findOneByToken($token);
@@ -89,13 +91,32 @@ class SupprimerPasswordController extends AbstractController
             return $this->redirectToRoute('supprimer_password');
         }
         // rendre une vue mot de passe et confirmer votre mot de passe
-        return $this->render('supprimer_password/update.html.twig');
+
+        $form = $this->createForm(SupprimerPasswordType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /*  dd($form->getData());*/
+            $new_pwd = $form->get('new_password')->getData();
+            dd($new_pwd);
+
 
         //Encodage des mots de passe
+        $password = $encoder->hashPassword($supprimer_password->getUser(), $new_pwd);
+        $supprimer_password->getUser()->setPassword($password);
 
         //Flush en BDD
-
+        $this->entityManager->flush();
         //Redirection de l'utilisateur vers la page de connexion
-        dd($supprimer_password);
+        $this->addFlash('notice', 'Votre mot de passe a bien été mis à jour');
+        return $this->redirectToRoute('app_login');
+    }
+
+        return $this->render('supprimer_password/update.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+
+
+        /*   dd($supprimer_password);*/
     }
 }
