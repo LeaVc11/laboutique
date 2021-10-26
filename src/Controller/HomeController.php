@@ -26,17 +26,17 @@ class HomeController extends AbstractController
     public function index()
     {
         $products = $this->entityManager->getRepository(Produit::class)->findByIsBest(1);
-
+        $headers = $this->entityManager->getRepository(Header::class)->findAll();
   /*      phpinfo();*/
 /*dd($products);*/
 
         $mail=new Mail();
-        $mail->send('laboutiquetest42@gmail.com', 'Carine VINAGRE','Mon premier message', 'Bonjour, Carine');
+        $mail->send('laboutiquetest42@gmail.com', 'Carine VINAGRE','Mon premier message', 'Bonjour ,Carine');
 
         return $this->render('home/index.html.twig',
             [
                 'products'=>$products,
-
+                'headers'=>$headers
             ]);
     }
 }

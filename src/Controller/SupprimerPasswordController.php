@@ -69,7 +69,7 @@ class SupprimerPasswordController extends AbstractController
     }
 
     #[Route('/mot-de-passe-modifier/{token}', name: 'modifier_password')]
-    public function update(Request $request, $token,  UserPasswordHasherInterface $encoder)
+    public function update(Request $request, $token, UserPasswordHasherInterface $encoder)
     {
         /*dd($token);*/
         $supprimer_password = $this->entityManager->getRepository((SupprimerPassword::class))->findOneByToken($token);
@@ -97,19 +97,21 @@ class SupprimerPasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /*  dd($form->getData());*/
             $new_pwd = $form->get('new_password')->getData();
-            dd($new_pwd);
+           /* dd($new_pwd);*/
 
 
-        //Encodage des mots de passe
-        $password = $encoder->hashPassword($supprimer_password->getUser(), $new_pwd);
-        $supprimer_password->getUser()->setPassword($password);
+            //Encodage des mots de passe
 
-        //Flush en BDD
-        $this->entityManager->flush();
-        //Redirection de l'utilisateur vers la page de connexion
-        $this->addFlash('notice', 'Votre mot de passe a bien été mis à jour');
-        return $this->redirectToRoute('app_login');
-    }
+            $password = $encoder->hashPassword($supprimer_password->getUser(), $new_pwd);
+            $supprimer_password->getUser()->setPassword($password);
+
+            //Flush en BDD
+            $this->entityManager->flush();
+
+            //Redirection de l'utilisateur vers la page de connexion
+            $this->addFlash('notice', 'Votre mot de passe a bien été mis à jour');
+            return $this->redirectToRoute('compte');
+        }
 
         return $this->render('supprimer_password/update.html.twig',
             [
@@ -117,6 +119,6 @@ class SupprimerPasswordController extends AbstractController
             ]);
 
 
-        /*   dd($supprimer_password);*/
+          dd($supprimer_password);
     }
 }
