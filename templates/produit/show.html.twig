@@ -3,7 +3,7 @@
 {% block title %}{{ product.nom }}- La boutique 100% Made in Loire{% endblock %}
 
 {% block content %}
-
+    <a href="{{ path('produits') }}" class="float-right">Retour</a><br>
     <div class="row product-container">
         <div class="col-md-5">
             <img src="/uploads/{{ product.illustration }}" alt="{{ product.nom }}" class="img-fluid">

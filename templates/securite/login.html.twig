@@ -5,6 +5,7 @@
 {% block content %}
     <div class="block-small">
         <form method="post">
+
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'securite') }}</div>
             {% endif %}
@@ -19,10 +20,12 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
-            <label for="inputEmail">Votre email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
-            <label for="inputPassword">Votre mot de passe</label>
+            <h1 class="h3 mb-3 font-weight-bold text-info ">Merci de vous connecter</h1>
+
+            <label for="inputEmail" class="text-info font-weight-bold mb-2">Votre Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-2" placeholder="Votre adresse email" required autofocus>
+
+            <label for="inputPassword"  class="text-info font-weight-bold mb-2">Votre Mot de Passe</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Votre mot de passe" required>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -31,9 +34,9 @@
                 Se connecter
             </button>
             <hr>
-            <p class="text-center"><a href="{{ path('supprimer_password') }}">Mot de passe oublié</a> ?</p>
+            <p class="text-center font-weight-bold"><a href="{{ path('supprimer_password') }}" class="text-info fw-bold">Mot de passe oublié</a> ?</p>
 
-            <p class="text-center">Ou souhaitez-vous <a href="{{ path('inscription') }}">créer un compte</a> ?</p>
+            <p class="text-center font-weight-bold">Où souhaitez-vous <a href="{{ path('inscription') }}" class="text-info fw-bold">Créer un compte</a> ?</p>
         </form>
     </div>
 {% endblock %}

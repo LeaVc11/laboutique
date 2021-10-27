@@ -4,8 +4,9 @@
 
 {% block content %}
 
-    <h1>Mon panier</h1>
-    Retrouvez l'ensemble des produits que vous avez ajouté dans votre panier.
+    <h1 class="font-weight-bold text-info">Mon panier</h1>
+    <a href="{{ path('produits') }}" class="float-right font-weight-bold ">Retour</a><br>
+    <p class="font-weight-bold ">Retrouvez l'ensemble des produits que vous avez ajouté dans votre panier.</p>
 
     {# {{ dump(panier) }} #}
     {% if panier |length > 0 %}
@@ -28,9 +29,9 @@
                         <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
                              height="75px"><br>
                     </th>
-                    <td>{{ produit.product.nom }}
+                    <td class="font-weight-bold">{{ produit.product.nom }}
                         <br>
-                        <small>{{ produit.product.subtitle }}</small>
+                        <small class="font-weight-bold">{{ produit.product.subtitle }}</small>
                     </td>
                     <td>
 
@@ -38,20 +39,20 @@
                         <a href="{{ path('decrease_mon_panier', { 'id':produit.product.id}) }}">
                             <img src="{{ asset('assets/image/minus.png') }}" height="15px" alt="Supprimer quantité">
                         </a>
-                        <b> x {{ produit.quantity }}</b>
+                        <b class="font-weight-bold"> x {{ produit.quantity }}</b>
 
 
                   {#      Ajouter produit#}
-                        <a href="{{ path('add_to_panier', { 'id':produit.product.id}) }}">
+                        <a  href="{{ path('add_to_panier', { 'id':produit.product.id}) }}" >
 
                         <img src="{{ asset('assets/image/plus.png') }}" height="15px" alt="Ajouter quantité">
                         </a>
                     </td>
-                    <td>{{ (produit.product.prix/ 100) | number_format(2, ',', '.') }} €</td>
-                    <td>{{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €</td>
+                    <td class="font-weight-bold">{{ (produit.product.prix/ 100) | number_format(2, ',', '.') }} €</td>
+                    <td class="font-weight-bold">{{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €</td>
                     <td>
                         <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
-                            <img src="{{ asset('assets/image/delete.png') }}" height="18px" alt="Supprimer mon produit">
+                            <img src="{{ asset('assets/image/delete.png') }}"  height="18px" alt="Supprimer mon produit">
                         </a>
 
                     </td>
@@ -61,14 +62,14 @@
             </tbody>
         </table>
 
-        <div class="text-right mb-5">
+        <div class="text-right mb-5 font-weight-bold">
             <b> Nombre de produit : {{ panier|length }}</b><br>
             <b> Total : </b>{{ (total/ 100) | number_format(2, ',', '.') }} €<br>
 
-            <a href="" class="btn btn-success mt-3">Valider mon panier</a>
+            <a href="{{ path('commande') }}" class="btn btn-success mt-3 font-weight-bold">Valider mon panier</a>
         </div>
     {% else %}
         <hr>
-        <p class="mb-5"><b>Votre panier est vide.</b></p>
+        <p class="mb-5 font-weight-bold"><b>Votre panier est vide.</b></p>
     {% endif %}
 {% endblock %}

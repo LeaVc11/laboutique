@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - La Marque 42{% endblock %}
+
+{% block content %}
+
+    <h2 class="font-weight-bold text-info"> Ma commande</h2>
+    <p class="font-weight-bold text">Choisissez vos préférences avant de passer votre commande sur la boutique "La Marque 42".</p>
+    <a href="{{ path('produits') }}" class="float-right">Retour</a><br>
+    <hr>
+    <div class="col-md-6">
+        <b>Choisir l'addresse de livraison</b><br/>
+        <b>Choisir mon transporteur</b><br/>
+    </div>
+    <div class="col-md-6">
+        <b>Récapitulatif de ma commande</b><br/>
+        <b>Payer</b><br/>
+    </div>
+{% endblock %}

@@ -2,39 +2,40 @@
 
 {% block title %}Mon compte - La Marque 42 {% endblock %}
 
-{% block content%}
-<h1>Mon compte</h1>
+{% block content %}
+    <h1 class="font-weight-bold text-info" >Mon compte</h1>
 
     {% if is_granted('ROLE_ADMIN') %}
         <div class="account-item text-center">
-            <a href="/admin">Vous êtes un administrateur, accèder au backoffice</a><br/>
+            <img src="{{ asset('assets/image/admin.png') }}" alt="Modifier mon mot de passe"><br/><br/>
+            <a href="/admin">Vous êtes un administrateur</a><br/>
         </div>
 
     {% endif %}
     <br/>
 
-    Bienvenue {{( app.user.nom)}} dans votre compte.<br/><br/>
-    C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.
-{#{{ dump(app.user.nom) }}#}
+    <p class="font-weight-bold " >Bienvenue {{ ( app.user.nom) }} dans votre compte.<br/><br/>
+        C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.</p>
+    {# {{ dump(app.user.nom) }} #}
 
     <div class="row">
         <div class="col-md-4">
 
             <div class="account-item text-center">
-             <img src="{{ asset('assets/image/padlock.png') }}" alt="Modifier mon mot de passe"><br/><br/>
+                <img src="{{ asset('assets/image/padlock.png') }}" alt="Modifier mon mot de passe"><br/><br/>
                 <a href="{{ path('compte_password') }}">Modifier mon mot de passe</a><br/>
             </div>
         </div>
         <div class="col-md-4">
             <div class="account-item text-center">
-           <img src="{{ asset('assets/image/book.png') }}" alt="Gérer mes adresses"><br/><br/>
+                <img src="{{ asset('assets/image/book.png') }}" alt="Gérer mes adresses"><br/><br/>
                 <a href="{{ path('compte_adresse') }}">Gérer mes adresses</a>
             </div>
         </div>
         <div class="col-md-4">
             <div class="account-item text-center">
-          <img src="{{ asset('assets/image/purchasing.png') }}" alt="Mes commandes"><br/>
-               {# <a href="{{ path('account_order') }}">Mes commandes</a>#}
+                <img src="{{ asset('assets/image/purchasing.png') }}" alt="Mes commandes"><br/><br/>
+                 <a href="#">Mes commandes</a>
             </div>
         </div>
     </div>
