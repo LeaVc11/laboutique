@@ -52,7 +52,7 @@
                     <td class="font-weight-bold">{{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €</td>
                     <td>
                         <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
-                            <img src="{{ asset('assets/image/delete.png') }}"  height="18px" alt="Supprimer mon produit">
+                            <img src="{{ asset('assets/image/delete-button.png') }}"  height="18px" alt="Supprimer mon produit">
                         </a>
 
                     </td>

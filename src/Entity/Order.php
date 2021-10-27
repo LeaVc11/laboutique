@@ -53,6 +53,11 @@ class Order
      */
     private $detailCommandes;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPay;
+
     public function __construct()
     {
         $this->detailCommandes = new ArrayCollection();
@@ -149,6 +154,18 @@ class Order
                 $detailCommande->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsPay(): ?bool
+    {
+        return $this->isPay;
+    }
+
+    public function setIsPay(bool $isPay): self
+    {
+        $this->isPay = $isPay;
 
         return $this;
     }

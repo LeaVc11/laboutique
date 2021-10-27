@@ -39,7 +39,7 @@ class CommandeType extends AbstractType
                     'label' => 'Valider',
                     'attr' =>
                         [
-                            'class' => 'btn-block btn-secondary '
+                            'class' => 'btn-block btn-success '
                         ]
                 ]);
     }

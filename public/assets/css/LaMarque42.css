@@ -59,6 +59,7 @@ img .cart-icon
     margin: 0 auto;
 }
 
+/*Formulaire "MA COMMANDE"*/
 .form-check {
     background-color: #f4f8ff;
     padding: 20px 65px;
@@ -69,8 +70,8 @@ img .cart-icon
     font-weight: bold;
 }
 
-.order-summary {
-    background-color: #7ed6df;
+.commande-sommaire {
+    background-color: #f4f8ff;
     padding: 20px;
     margin-top: 22px;
 }

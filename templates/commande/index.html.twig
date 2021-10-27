@@ -16,7 +16,9 @@
         <div class="col-md-6">
 
             {% set formHtml %}
-                {{ form(form) }}
+                {{ form_start(form,{action:path('commande_recap')}) }}
+
+                {{ form_end(form) }}
             {% endset %}
 
             {{ formHtml|replace({'[br]' : '<br>'}) | raw }}
@@ -25,11 +27,12 @@
 
         <div class="col-md-6">
             <div>
-                <p class="font-weight-bold">Retrouvez le récapitulatif de vos produits.</p>
+                <p class="font-weight-bold text-center">Retrouvez le récapitulatif de vos produits.</p>
             </div>
+            <div class="commande-sommaire" >
             {# {{ dump(panier) }} #}
-            {% for produit in panier %}
-                <div class="row">
+            {% for key,produit in panier %}
+                <div class="row {% if key > 0 %} mt-2{% endif %}">
                     <div class="col-3 mb-3 ">
                         <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
                              height="150px"><br>
@@ -43,12 +46,13 @@
                     </div>
                     <div class="col-">
                         <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
-                            <img src="{{ asset('assets/image/delete.png') }}" height="18px" alt="Supprimer mon produit">
+                            <img src="{{ asset('assets/image/delete-button.png') }}" height="18px" alt="Supprimer mon produit">
                         </a>
                     </div>
                 </div>
+                <hr>
             {% endfor %}
-
+            </div>
         </div>
     </div>
 
