@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Panier;
 use App\Entity\Adresse;
 use App\Form\AdresseType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,31 +26,41 @@ class CompteAdresseController extends AbstractController
     #[Route('/compte/adresses', name: 'compte_adresse')]
     public function index()
     {
-        /* dd($this->getUser());*/
+         /*dd($this->getUser());*/
         return $this->render('compte/adresse.html.twig');
     }
 
-    #[Route('/compte/ajouter-une-adresse', name: 'compte_adresse-ajouter')]
-    public function add(Request $request)
+    #[Route('/compte/ajouter-une-adresse', name: 'compte_adresse_ajouter')]
+    public function add(Panier $panier, Request $request)
     {
         $adresse = new Adresse();
         $form = $this->createForm(AdresseType::class, $adresse);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $adresse->setUser($this->getUser());
             $this->entityManager->persist($adresse);
             $this->entityManager->flush();
-            /*dd($adresse);*/
-            return $this->redirectToRoute('compte_adresse');
-        }
-        return $this->render('compte/adresse_form.html.twig',
-            [
-                'form' => $form->createView()
-            ]);
-    }
 
-    #[Route('/compte/modifier-une-adresse/{id}', name: 'compte_adresse_modifier')]
+            /*dd($adresse);*/
+
+            if ($panier->get()) {
+                return $this->redirectToRoute('commande');
+            } else {
+                return $this->redirectToRoute('compte_adresse');
+            }
+
+
+        }
+            return $this->render('compte/adresse_form.html.twig',
+                [
+                    'form' => $form->createView()
+                ]);
+        }
+
+        #[
+        Route('/compte/modifier-une-adresse/{id}', name: 'compte_adresse_modifier')]
     public function edit(Request $request, $id)
     {
         $adresse = $this->entityManager->getRepository(Adresse::class)->findOneById($id);
@@ -82,7 +93,7 @@ class CompteAdresseController extends AbstractController
 
         }
 
-            return $this->redirectToRoute('compte_adresse');
+        return $this->redirectToRoute('compte_adresse');
 
     }
 

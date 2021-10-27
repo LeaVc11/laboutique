@@ -41,7 +41,8 @@ class AdresseType extends AbstractType
                 ] )
             ->add('entreprise', TextType::class,
         [
-            'label'=> 'Votre société ?',
+            'label'=> 'Votre société ',
+            'required'=>false,
             'attr'=>
                 [
                     'placeholder'=>'Entrez le nom de votre société (facultatif)'
@@ -57,7 +58,7 @@ class AdresseType extends AbstractType
                 ] )
             ->add('codePostal', TextType::class,
                 [
-                    'label'=> 'Votre code postal ?',
+                    'label'=> 'Votre code postal ',
                     'attr'=>
                         [
                             'placeholder'=>'Entrez votre code postal'

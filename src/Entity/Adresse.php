@@ -73,10 +73,15 @@ class Adresse
      */
     private $telephone;
 
+    public function __toString()
+    {
+        return $this->getName().'[br]'.$this->getAdresse().'[br]'.$this->getVille().'-'.$this->getPays();
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getUser(): ?User
     {

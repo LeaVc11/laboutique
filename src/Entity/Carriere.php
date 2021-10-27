@@ -40,6 +40,10 @@ class Carriere
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->getNom().'[br]'.$this->getDescription().'[br]'.number_format($this->getPrix(),2, ',',',' );
+    }
     public function getNom(): ?string
     {
         return $this->nom;
