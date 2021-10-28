@@ -49,13 +49,10 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    /*   pay*/
+
     #[Route('/commande/recapitulatif', name: 'commande_recap')]
     public function add(Panier $panier, Request $request)
     {
-        /*if (!$this->getUser()->getAdresses()->getValues()) {
-            return $this->redirectToRoute('compte_adresse_ajouter');
-        }*/
 
         $form = $this->createForm(CommandeType::class, null, [
             'user' => $this->getUser()
@@ -66,7 +63,9 @@ class CommandeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $date = new \DateTime();
+
             $transporteurs = $form->get('transporteurs')->getData();
+
             $livraison = $form->get('adresse')->getData();
             $livraison_contenu = $livraison->getPrenom(). ' ' .$livraison->getNom();
             $livraison_contenu .= '<br/>'. $livraison->getTelephone() ;
@@ -75,14 +74,15 @@ class CommandeController extends AbstractController
             {
                 $livraison_contenu .= '<br/>'.$livraison->getEntreprise();
             }
+
             $livraison_contenu .= '<br/>'.$livraison->getAdresse();
             $livraison_contenu .= '<br/>'.$livraison->getCodePostal().' '.$livraison->getVille();
             $livraison_contenu .= '<br/>'.$livraison->getPays();
- /*           dd($livraison_contenu);*/
 
+            /*    dd($livraison_contenu);*/
 
             /*    dd($transporteurs);*/
-   /*         dd($livraison);*/
+            /*    dd($livraison);*/
 
 
             // Enregistrer la commande
@@ -108,18 +108,20 @@ class CommandeController extends AbstractController
                 $commandeDetails->setPrix($produit['product']->getPrix());
                 $commandeDetails->setTotal($produit['product']->getPrix() * $produit['quantity'] );
 
+
+
                 $this->entityManager->persist($commandeDetails);
                /* dd($produit);*/
             }
 
-            $this->entityManager->flush();
+            /*$this->entityManager->flush();*/
 
             /*       dd($form->getData());*/
         }
 
         return $this->render('commande/ajouter.html.twig', [
-            /*'form' => $form->createView(),*/
-            'panier' => $panier->getFull()
+            'panier' => $panier->getFull(),
+            'transporteur'=>$transporteurs
         ]);
     }
 

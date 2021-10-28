@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - La Marque 42{% endblock %}
+
+{% block content %}
+
+    <h2 class="font-weight-bold text-info text-center"> RÉCAPITULATIF DE LA COMMANDE </h2>
+
+
+    <a href="{{ path('produits') }}" class="float-right font-weight-bold">Nos produits</a><br>
+
+    <a href="{{ path('compte') }}" class="float-right font-weight-bold">Retour</a><br>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+
+            Mon adresse de livraison <br/>
+
+
+            <strong>Mon transporteur</strong>
+            <hr>
+            {{ transporteur.nom }} <br/>
+            {{ transporteur.description }}<br/>
+            {{ transporteur.prix | number_format(2, ',', '.') }} €
+{#{{ dump(transporteur) }}#}
+        </div>
+
+        <div class="col-md-6">
+            <p class="font-weight-bold text-center">Retrouvez le récapitulatif de vos produits.</p>
+            <div class="commande-sommaire ">
+                {# {{ dump(panier) }} #}
+                {% set total = null %}
+
+                {% for key,produit in panier %}
+                    {# {{ dump(produit) }} #}
+                    <div class="row  {% if key > 0 %} mt-2{% endif %}">
+                        <div class="col-3 mb-3 ">
+                            <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
+                                 height="150px"><br>
+                        </div>
+                        <div class="col-6 text-center font-weight-bold my-auto">
+                            {{ produit.product.nom }}<br/>
+                            <small class="font-weight-bold ">{{ produit.product.subtitle }}</small>
+                            <br/>
+                            x {{ produit.quantity }}
+                        </div>
+                        <div class="col-3 font-weight-bold my-auto">
+                            {{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €
+                        </div>
+
+                    </div>
+                    <hr>
+                    {% set total = total + (produit.product.prix * produit.quantity) %}
+                {% endfor %}
+            </div>
+          {#  {{ dump(transporteur) }}#}
+            <strong>Sous-Total : </strong> {{ (total/ 100) | number_format(2, ',', '.') }} € <br/>
+            <strong>Livraison : </strong> {{ (transporteur.prix) | number_format(2, ',', '.') }} €
+            <hr>
+            <strong>Total : </strong> {{( (total/ 100) +transporteur.prix)  | number_format(2, ',', '.') }} €
+            <a href="" class="btn btn-success btn-block mt-3">Payer</a>
+        </div>
+    </div>
+
+
+{% endblock %}
