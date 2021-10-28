@@ -37,10 +37,12 @@ class Order
      */
     private $NomTransporteur;
 
+
     /**
      * @ORM\Column(type="float")
      */
     private $prixTransporteur;
+
 
     /**
      * @ORM\Column(type="text")
@@ -61,6 +63,17 @@ class Order
     public function __construct()
     {
         $this->detailCommandes = new ArrayCollection();
+    }
+
+    public function getTotal()
+    {
+     /*   dd( $this->getDetailCommandes()->getValues());*/
+        $total=null;
+        foreach ($this->getDetailCommandes()->getValues() as $product)
+        {
+$total = $total +($product->getPrix()*$product->getQuantite());
+        }
+        return $total;
     }
 
     public function getId(): ?int
@@ -115,6 +128,8 @@ class Order
 
         return $this;
     }
+
+
 
     public function getLivraison(): ?string
     {

@@ -36,13 +36,6 @@ class CommandeController extends AbstractController
             'user' => $this->getUser()
         ]);
 
-        /*  $form->handleRequest($request);
-
-          if ($form->isSubmitted()&&$form->isValid())
-          {
-              dd($form->getData());
-          }*/
-
         return $this->render('commande/index.html.twig', [
             'form' => $form->createView(),
             'panier' => $panier->getFull()
@@ -50,7 +43,7 @@ class CommandeController extends AbstractController
     }
 
 
-    #[Route('/commande/recapitulatif', name: 'commande_recap')]
+    #[Route('/commande/recapitulatif', name: 'commande_recap', methods: 'POST')]
     public function add(Panier $panier, Request $request)
     {
 
@@ -67,21 +60,20 @@ class CommandeController extends AbstractController
             $transporteurs = $form->get('transporteurs')->getData();
 
             $livraison = $form->get('adresse')->getData();
-            $livraison_contenu = $livraison->getPrenom(). ' ' .$livraison->getNom();
-            $livraison_contenu .= '<br/>'. $livraison->getTelephone() ;
+            $livraison_contenu = $livraison->getPrenom() . ' ' . $livraison->getNom();
+            $livraison_contenu .= '<br/>' . $livraison->getTelephone();
 
-            if ($livraison->getEntreprise())
-            {
-                $livraison_contenu .= '<br/>'.$livraison->getEntreprise();
+            if ($livraison->getEntreprise()) {
+                $livraison_contenu .= '<br/>' . $livraison->getName();
             }
 
-            $livraison_contenu .= '<br/>'.$livraison->getAdresse();
-            $livraison_contenu .= '<br/>'.$livraison->getCodePostal().' '.$livraison->getVille();
-            $livraison_contenu .= '<br/>'.$livraison->getPays();
+            $livraison_contenu .= '<br/>' . $livraison->getAdresse();
+            $livraison_contenu .= '<br/>' . $livraison->getCodePostal() . ' ' . $livraison->getVille();
+            $livraison_contenu .= '<br/>' . $livraison->getPays();
 
             /*    dd($livraison_contenu);*/
 
-            /*    dd($transporteurs);*/
+            /*     dd($transporteurs);*/
             /*    dd($livraison);*/
 
 
@@ -90,7 +82,6 @@ class CommandeController extends AbstractController
             $commande->setUser($this->getUser());
             $commande->setCreatedAt($date);
             $commande->setNomTransporteur($transporteurs->getNom());
-            $commande->setPrixTransporteur($transporteurs->getPrix());
             $commande->setLivraison($livraison_contenu);
             $commande->setIsPay(0);
 
@@ -98,31 +89,31 @@ class CommandeController extends AbstractController
 
 
             // Enregistrer le détail de la commande
-            foreach ($panier->getFull() as $produit)
-            {
+            foreach ($panier->getFull() as $produit) {
 
-                $commandeDetails= new DetailCommande();
+                $commandeDetails = new DetailCommande();
                 $commandeDetails->setCommande($commande);
                 $commandeDetails->setProduit($produit['product']->getNom());
                 $commandeDetails->setQuantite($produit['quantity']);
                 $commandeDetails->setPrix($produit['product']->getPrix());
-                $commandeDetails->setTotal($produit['product']->getPrix() * $produit['quantity'] );
-
+                $commandeDetails->setTotal($produit['product']->getPrix() * $produit['quantity']);
 
 
                 $this->entityManager->persist($commandeDetails);
-               /* dd($produit);*/
+                /* dd($produit);*/
             }
 
-            /*$this->entityManager->flush();*/
+            $this->entityManager->flush();
 
             /*       dd($form->getData());*/
+            return $this->render('commande/ajouter.html.twig', [
+                'panier' => $panier->getFull(),
+                'transporteur' => $transporteurs,
+                'livraison' => $livraison_contenu
+            ]);
         }
 
-        return $this->render('commande/ajouter.html.twig', [
-            'panier' => $panier->getFull(),
-            'transporteur'=>$transporteurs
-        ]);
+        return $this->redirectToRoute('panier');
     }
 
 }

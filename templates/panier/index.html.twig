@@ -6,17 +6,16 @@
 
     <h1 class="font-weight-bold text-info">Mon panier</h1>
     <a href="{{ path('produits') }}" class="float-right font-weight-bold ">Retour</a><br>
-    <p class="font-weight-bold ">Retrouvez l'ensemble des produits que vous avez ajouté dans votre panier.</p>
 
     {# {{ dump(panier) }} #}
     {% if panier |length > 0 %}
         <table class="table mt-3">
             <thead>
             <tr>
-                <th scope="col">Produit</th>
-                <th scope="col">Quantité</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Total</th>
+                <th scope="col" class="text-info">Produit</th>
+                <th scope="col" class="text-info">Quantité</th>
+                <th scope="col" class="text-info">Prix</th>
+                <th scope="col" class="text-info">Total</th>
                 <th scope="col"></th>
             </tr>
             </thead>

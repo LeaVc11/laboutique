@@ -5,8 +5,7 @@
 {% block content %}
 
     <h2 class="font-weight-bold text-info text-center"> Ma commande</h2>
-    <p class="font-weight-bold text">Choisissez vos préférences avant de passer votre commande sur la boutique "La
-        Marque 42".</p>
+
 
     <a href="{{ path('produits') }}" class="float-right font-weight-bold">Nos produits</a><br>
 
@@ -18,6 +17,10 @@
             {% set formHtml %}
 
                 {{ form_start(form, {action:path('commande_recap')}) }}
+
+                {{ form_label(form.adresse, 'Choisissez votre adresse de livraison') }}
+            <a href="{{ path('compte_adresse_ajouter') }}" class="text-info font-weight-bold"> Ajouter une nouvelle adresse</a>
+
                 {{ form_end(form) }}
 
             {% endset %}
@@ -28,36 +31,46 @@
 
         <div class="col-md-6">
             <div>
-                <p class="font-weight-bold text-center">Retrouvez le récapitulatif de vos produits.</p>
+                <p class="font-weight-bold ">Récapitulatif de ma commande.</p>
             </div>
             <div class="commande-sommaire ">
        {#         {{ dump(panier) }}#}
-
                 {% for key,produit in panier %}
-                    <div class="row  {% if key > 0 %} mt-2{% endif %}">
-                        <div class="col-2 mb-3 ">
-                            <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
-                                 height="150px"><br>
-                        </div>
-                        <div class="col-6 text-center font-weight-bold my-auto">
-                            {{ produit.product.nom }}<br/>
-                            <small class="font-weight-bold ">{{ produit.product.subtitle }}</small>
-                        </div>
-                        <div class="col-3 font-weight-bold my-auto">
-                            x {{ produit.quantity }}
-                        </div>
-                        <div class="col-1">
-                            <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
-                                <img src="{{ asset('assets/image/delete-button.png') }}" height="18px"
-                                     alt="Supprimer mon produit">
-                            </a>
-                        </div>
+                    {# {{ dump(produit) }} #}
+                <div class="row  {% if key > 0 %} mt-2{% endif %}">
+
+                    <div class="col-2  ">
+                        <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
+                             height="150px"><br>
                     </div>
+                    <div class="col-7 font-weight-bold text-center  my-auto">
+                        {{ produit.product.nom }}<br/>
+                        <small class="font-weight-bold my-auto">{{ produit.product.subtitle }}</small>
+                        <br/>
+                        x {{ produit.quantity }}
+
+
+                    </div>
+                    <div class="col-3 font-weight-bold my-auto">
+                        <p>Total : </p>
+                        {{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €
+
+                    </div>
+                </div>
+                <div class="row  float-right">
+                    <div class="col-1 ">
+                        <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
+                            <img src="{{ asset('assets/image/delete-button.png') }}" height="18px"
+                                 alt="Supprimer mon produit">
+                        </a>
+                    </div>
+                </div>
+                <br/>
                     <hr>
                 {% endfor %}
             </div>
         </div>
     </div>
-    <b>Payer</b><br/>
+
 
 {% endblock %}

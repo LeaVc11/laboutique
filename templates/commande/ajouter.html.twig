@@ -14,51 +14,73 @@
     <div class="row">
         <div class="col-md-6">
 
-            Mon adresse de livraison <br/>
-
-
-            <strong>Mon transporteur</strong>
+            <strong class="text-info">Mon adresse de livraison</strong>
+            <div class="form-check mt-4">
+                {{ livraison |raw }}
+            </div>
             <hr>
-            {{ transporteur.nom }} <br/>
-            {{ transporteur.description }}<br/>
-            {{ transporteur.prix | number_format(2, ',', '.') }} €
-{#{{ dump(transporteur) }}#}
+            <strong class="text-info">Mon transporteur</strong>
+            <br/>
+            <br/>
+            <div class="form-check">
+                <img src="/uploads/{{ transporteur.illustration }}" alt="{{ transporteur.nom }}"
+                     height="50px"><br/><br/>
+                {{ transporteur.description }}<br/>
+                {{ transporteur.prix | number_format(2, ',', '.') }} €
+                {# {{ dump(transporteur) }} #}
+            </div>
         </div>
 
         <div class="col-md-6">
-            <p class="font-weight-bold text-center">Retrouvez le récapitulatif de vos produits.</p>
+            <p class="font-weight-bold text-center">Récapitulatif de ma commande.</p>
             <div class="commande-sommaire ">
                 {# {{ dump(panier) }} #}
                 {% set total = null %}
 
                 {% for key,produit in panier %}
                     {# {{ dump(produit) }} #}
+
                     <div class="row  {% if key > 0 %} mt-2{% endif %}">
-                        <div class="col-3 mb-3 ">
+
+                        <div class="col-2  ">
                             <img src="/uploads/{{ produit.product.illustration }}" alt="{{ produit.product.nom }}"
                                  height="150px"><br>
                         </div>
-                        <div class="col-6 text-center font-weight-bold my-auto">
+                        <div class="col-7 font-weight-bold text-center  my-auto">
                             {{ produit.product.nom }}<br/>
-                            <small class="font-weight-bold ">{{ produit.product.subtitle }}</small>
+                            <small class="font-weight-bold my-auto">{{ produit.product.subtitle }}</small>
                             <br/>
                             x {{ produit.quantity }}
+
+
                         </div>
                         <div class="col-3 font-weight-bold my-auto">
+                            <p>Total : </p>
                             {{ (produit.product.prix * produit.quantity/ 100) | number_format(2, ',', '.') }} €
-                        </div>
 
+                        </div>
                     </div>
+                    <div class="row  float-right">
+                        <div class="col-1 ">
+                            <a href="{{ path('delete_mon_panier',{'id':produit.product.id}) }}">
+                                <img src="{{ asset('assets/image/delete-button.png') }}" height="18px"
+                                     alt="Supprimer mon produit">
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
                     <hr>
                     {% set total = total + (produit.product.prix * produit.quantity) %}
                 {% endfor %}
             </div>
-          {#  {{ dump(transporteur) }}#}
-            <strong>Sous-Total : </strong> {{ (total/ 100) | number_format(2, ',', '.') }} € <br/>
+            {# {{ dump(transporteur) }} #}
+            <div class="text-right">
+            <strong >Sous-Total : </strong> {{ (total/ 100) | number_format(2, ',', '.') }} € <br/>
             <strong>Livraison : </strong> {{ (transporteur.prix) | number_format(2, ',', '.') }} €
             <hr>
-            <strong>Total : </strong> {{( (total/ 100) +transporteur.prix)  | number_format(2, ',', '.') }} €
-            <a href="" class="btn btn-success btn-block mt-3">Payer</a>
+            <strong>Total : </strong> {{ ( (total/ 100) +transporteur.prix)  | number_format(2, ',', '.') }} €
+            </div>
+            <a href="" class="btn btn-success btn-block mt-3">Payer  | {{ ( (total/ 100) +transporteur.prix)  | number_format(2, ',', '.') }} € </a>
         </div>
     </div>
 
