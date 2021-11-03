@@ -24,19 +24,19 @@ class ProduitCrudController extends AbstractCrudController
     {
 return
     [
-        TextField::new('nom'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
-        SlugField::new('slug')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/->setTargetFieldName('nom'),
-        ImageField::new('illustration')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
-           /* pour avoir l'image avec easyAdmin => on se sert de combinaison de propriété*/
+        TextField::new('nom'),
+        SlugField::new('slug')->setTargetFieldName('nom'),
+        ImageField::new('illustration')
+
             ->setBasePath('uploads')
             ->setUploadDir('public/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setRequired(false),
-        TextField::new('subtitle'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
-        TextareaField::new('description'),/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
+        TextField::new('subtitle'),
+        TextareaField::new('description'),
         BooleanField::new('isBest'),
-        MoneyField::new('prix','Prix')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/->setCurrency('EUR'),
-        AssociationField::new('category')/* ATTENTION ECRIRE LA MEME CHOSE QUE DS PRODUIT.PHP*/
+        MoneyField::new('prix','Prix')->setCurrency('EUR'),
+        AssociationField::new('category')
 
     ];
     }

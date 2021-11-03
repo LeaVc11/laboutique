@@ -40,13 +40,11 @@
                 <li class="nav-item active">
                     <a class="nav-link " href="{{path('contact')}}">Contact</a>
                 </li>
-
             </ul>
-
             <div class="navbar-item-personnalise">
                 {% if app.user %}
-
-                    <a href="{{ path('compte') }}" >Mon compte ({{ app.user.nom }} {{ app.user.prenom }})</a> | <a href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a href="{{ path('compte') }}" >Mon compte ({{ app.user.nom }} {{ app.user.prenom }})</a> |
+                    <a href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_login') }}">Connexion</a> | <a
                         href="{{ path('inscription') }}">Inscription</a>
@@ -55,7 +53,6 @@
             <a href="{{ path('panier') }}">
                 <img src="{{ asset('assets/image/shopping-cart.png')}}" class="cart-icon" height="20px" alt="Mon panier">
             </a>
-
         </div>
     </nav>
 </header>

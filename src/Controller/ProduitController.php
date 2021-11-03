@@ -15,14 +15,10 @@ class ProduitController extends AbstractController
 
     private $entityManager;
 
-    /**
-     * @param $entityManager
-     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-
 
     #[Route('/nos-produits', name: 'produits')]
     public function index(Request $request)
