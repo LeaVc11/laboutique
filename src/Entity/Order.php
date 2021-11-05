@@ -55,10 +55,6 @@ class Order
      */
     private $detailCommandes;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isPay;
 
     public function __construct()
     {
@@ -173,15 +169,4 @@ $total = $total +($product->getPrix()*$product->getQuantite());
         return $this;
     }
 
-    public function getIsPay(): ?bool
-    {
-        return $this->isPay;
-    }
-
-    public function setIsPay(bool $isPay): self
-    {
-        $this->isPay = $isPay;
-
-        return $this;
-    }
 }

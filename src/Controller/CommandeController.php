@@ -82,8 +82,9 @@ class CommandeController extends AbstractController
             $commande->setUser($this->getUser());
             $commande->setCreatedAt($date);
             $commande->setNomTransporteur($transporteurs->getNom());
+            $commande->setPrixTransporteur($transporteurs->getPrix());
             $commande->setLivraison($livraison_contenu);
-            $commande->setIsPay(0);
+
 
             $this->entityManager->persist($commande);
 
