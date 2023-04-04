@@ -13,7 +13,7 @@ class SupprimerPassword
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")create
      */
     private $id;
 
